@@ -36,3 +36,9 @@ To launch the project, simply run the containers in the background:
 ```bash
 docker compose up -d
 ```
+
+## Commands
+Run the following command to start populating the database with French Books and Authors
+```bash
+docker compose run web python manage.py fetch_books --pages 3 --start-page 1
+```
