@@ -14,6 +14,8 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ['name', 'date', 'number_of_books', 'number_of_bookshelves', 'total_download_count']
 
     def get_date(self, obj):
+        if not (obj.birth_year or obj.death_year):
+            return 'n/a'
         birth_year = obj.birth_year if obj.birth_year else 'n/a'
         death_year = obj.death_year if obj.death_year else 'n/a'
         return f'{birth_year} - {death_year}'
