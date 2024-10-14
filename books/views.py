@@ -16,9 +16,9 @@ class AuthorsView(APIView):
         authors = (
             Person.objects
             .annotate(
-                total_download_count=Sum('book__download_count'),
-                number_of_books=Count('book'),
-                number_of_bookshelves=Count('book__bookshelves_json')
+                total_download_count=Sum('book__download_count', distinct=True),
+                number_of_books=Count('book', distinct=True),
+                number_of_bookshelves=Count('book__bookshelves_json', distinct=True)
             )
             .filter(total_download_count__gt=0)  # Only include authors with books
             .order_by('-total_download_count')
