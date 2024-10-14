@@ -3,7 +3,7 @@ from urllib.parse import urlencode
 import requests
 from django.core.management.base import BaseCommand
 
-from books.models import Book, Person, Language
+from books.models import Book, Person, Language, Bookshelf
 
 
 class Command(BaseCommand):
@@ -76,6 +76,9 @@ class Command(BaseCommand):
                 # Get or create Languages
                 languages = [Language.objects.get_or_create(code=code)[0] for code in item['languages']]
 
+                # Get or create Bookshelves
+                bookshelves = [Bookshelf.objects.get_or_create(name=shelf)[0] for shelf in item['bookshelves']]
+
                 # Get or create Book
                 book, created = Book.objects.get_or_create(
                     id=item['id'],
@@ -85,13 +88,13 @@ class Command(BaseCommand):
                         'copyright': item['copyright'],
                         'download_count': item['download_count'],
                         'subjects_json': item['subjects'],
-                        'bookshelves_json': item['bookshelves'],
                         'formats_json': item['formats'],
                     }
                 )
                 # Set many-to-many relationships
                 book.authors.set(authors)
                 book.languages.set(languages)
+                book.bookshelves.set(bookshelves)
                 book.save() # @TODO: A bulk_create() would be more efficient at some point.
 
             # One page less to fetch
