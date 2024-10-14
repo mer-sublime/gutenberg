@@ -32,13 +32,14 @@ You should now be able to log in with your super user credentials.
 Congrats! The project is now up and running!
 
 ## Run
-To launch the project, simply run the containers in the background:
+1. Run the project's containers in the background:
 ```bash
 docker compose up -d
 ```
 
-## Commands
-Run the following command to start populating the database with French Books and Authors
+2. Run the following command to start populating the database with French Books and Authors
 ```bash
 docker compose run web python manage.py fetch_books --pages 3 --start-page 1
 ```
+
+3. Check the results of the Authors API by visiting http://localhost/api/authors/
