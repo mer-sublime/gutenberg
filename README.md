@@ -21,6 +21,16 @@ docker compose up -d
 docker compose run web python manage.py migrate 
 ```
 
+5. Create your own superuser:
+```bash
+docker compose run web python manage.py createsuperuser
+```
+
+6. Go to http://localhost/admin/.
+
+You should now be able to log in with your super user credentials.  
+Congrats! The project is now up and running!
+
 ## Run
 To launch the project, simply run the containers in the background:
 ```bash
