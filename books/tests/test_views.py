@@ -16,15 +16,15 @@ class AuthorsViewTests(APITestCase):
 
         # Create Books
         book1 = Book.objects.create(title="Book 1", media_type="text", copyright=False, download_count=100,
-                                    subjects_json={}, bookshelves_json={}, formats_json={})
+                                    subjects_json={}, formats_json={})
         book1.authors.set([author1, author2])
 
         book2 = Book.objects.create(title="Book 2", media_type="text", copyright=True, download_count=200,
-                                    subjects_json={}, bookshelves_json={}, formats_json={})
+                                    subjects_json={}, formats_json={})
         book2.authors.set([author1])
 
         book3 = Book.objects.create(title="Book 3", media_type="text", copyright=False, download_count=50,
-                                    subjects_json={}, bookshelves_json={}, formats_json={})
+                                    subjects_json={}, formats_json={})
         book3.authors.set([author3])
 
     def test_authors_list(self):
@@ -57,5 +57,4 @@ class AuthorsViewTests(APITestCase):
                 "total_download_count": 50
             }
         ]
-
         self.assertEqual(response.data['results'], expected_results)

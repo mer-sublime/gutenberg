@@ -16,6 +16,13 @@ class Language(models.Model):
         return self.code
 
 
+class Bookshelf(models.Model):
+    name = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Book(models.Model):
     title = models.CharField(blank=True, max_length=1024, null=True)
     authors = models.ManyToManyField(Person)
@@ -24,9 +31,9 @@ class Book(models.Model):
     media_type = models.CharField(max_length=16)
     copyright = models.BooleanField(null=True)
     download_count = models.IntegerField()
-    subjects_json = models.JSONField()
-    bookshelves_json = models.JSONField()
-    formats_json = models.JSONField()
+    bookshelves = models.ManyToManyField(Bookshelf, related_name='books', blank=True)
+    subjects_json = models.JSONField(null=True)
+    formats_json = models.JSONField(null=True)
 
     def __str__(self):
         if self.title:
